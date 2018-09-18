@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GamePuzzle</title>
+    <style>
+        img {
+            display: block;
+            margin: 1em;
+            padding: 0.2em;
+            box-shadow: 2px 3px 3px black;
+            width: 600px;
+            height: 150px;
+        }
+    </style>
+</head>
+<body>
+<div id="playDiv">
+    <img id="0" src="image/panda_swap_part1x1.jpg" alt onclick="playg(0)">
+    <img id="1" src="image/funny-cat1_part2x1.jpg" alt onclick="playg(1)">
+    <img id="2" src="image/monkey_part3x1.jpg" alt onclick="playg(2)">
+    <img id="3" src="image/panda_swap_part4x1.jpg" alt onclick="playg(3)">
+    <img id="4" src="image/funny-cat1_part5x1.jpg" alt onclick="playg(4)">
+</div>
+<script>
+    const animalID = {
+        monkey: 1,
+        panda: 2,
+        cat: 3,
+    };
+    let picturePosistion = [animalID.panda, animalID.cat, animalID.monkey, animalID.panda, animalID.cat];
+
+
+    function playg(i) {
+        picturePosistionModifider(i, picturePosistion[i]);
+        document.getElementById(i + "").src = getSrc(i + 1, picturePosistion[i]);
+        if (isWin(picturePosistion)) {
+            setBoder("red");
+        } else {
+            setBoder("black")
+        }
+
+    }
+
+    function picturePosistionModifider(imgID, curentAnimalID) {
+        if (curentAnimalID < 3) {
+            curentAnimalID++;
+        } else {
+            curentAnimalID = 1;
+        }
+        picturePosistion[imgID] = curentAnimalID;
+    }
+
+    function getSrc(n, animalid) {
+        let source = "image/";
+        n = n + "";
+        switch (animalid) {
+            case animalID.monkey:
+                source = source + "monkey_part" + n + "x1\.jpg";
+                break;
+            case animalID.panda:
+                source = source + "panda_swap_part" + n + "x1\.jpg";
+                break;
+            case animalID.cat:
+                source = source + "funny-cat1_part" + n + "x1\.jpg";
+                break;
+        }
+        return source;
+    }
+
+    function isWin(arr) {
+        let isWin = true;
+        for (let e of arr) {
+            if (e !== arr[0]) {
+                isWin = false;
+            }
+        }
+
+        return isWin;
+    }
+
+    function setBoder(color) {
+        for (let i = 0; i < 5; i++) {
+            document.getElementById(i+"").style.boxShadow = "2px 3px 3px "+color;
+        }
+    }
+</script>
+</body>
+</html>
