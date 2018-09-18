@@ -43,11 +43,7 @@
     }
 
     function picturePosistionModifider(imgID, curentAnimalID) {
-        if (curentAnimalID < 3) {
-            curentAnimalID++;
-        } else {
-            curentAnimalID = 1;
-        }
+        curentAnimalID = Math.round(Math.random()*2+1);
         picturePosistion[imgID] = curentAnimalID;
     }
 
